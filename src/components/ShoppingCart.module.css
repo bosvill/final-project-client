@@ -1,0 +1,54 @@
+.iconBtn {
+	padding: 0;
+	margin: 0;
+	border: none;
+	background-color: transparent;
+	cursor: pointer;
+}
+
+.iconBtn:active,
+.iconbtn:hover,
+.iconBtn:focus {
+	outline: none;
+}
+
+.cart{
+	width: 15rem;
+	padding: 1rem;
+	background-color: white;
+	color: var(--dark);
+	opacity: 98%;
+	/* border-radius: 0.2rem; */
+	box-shadow: 0.1rem 0.1rem 0.3rem #656565b6;
+	border: 1px solid #ececec;
+}
+
+.separator {
+	border: 1px solid #ececec;
+}
+
+.label {
+	display: flex;
+	margin: 1rem;
+	font-weight: 500;
+}
+
+.rightslot {
+	margin-left: auto;
+	padding-left: 20px;
+	color: var(--mauve11);
+}
+[data-highlighted] > .RightSlot {
+	color: white;
+}
+[data-disabled] .RightSlot {
+	color: var(--mauve8);
+}
+
+.link {
+	margin-top: 1rem;
+	color: var(--greyT);
+}
+.link:hover{
+	color: var(--boldT);
+}

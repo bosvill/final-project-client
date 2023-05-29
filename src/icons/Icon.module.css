@@ -1,0 +1,14 @@
+.svg {
+	width: 24px;
+	height: 24px;
+	/* stroke-width: 2px; */
+	/* fill: var(--darkT); */
+	stroke: var(--darkT);
+	background-color: transparent;
+}
+.svg:hover,
+.svg:active,
+.svg:focus {
+	/* fill: var(--accent); */
+	stroke: var(--accent);
+}

@@ -1,0 +1,46 @@
+.card {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	color: var(--darkT);
+	gap: 0.5rem;
+}
+
+.card:hover {
+	color: inherit;
+	background-color: #f3f3f3;
+	opacity: 80%;
+}
+.img {
+	width: 250px;
+	height: 300px;
+}
+.brand {
+	text-transform: uppercase;
+	font-weight: 500;
+	font-size: 1rem;
+	margin-top: 0.5rem;
+}
+
+.title {
+	color: var(--greyT);
+	font-weight: 400;
+	font-size: 0.9rem;
+	line-height: 1;
+}
+.brand:hover {
+	color: var(--greyT);
+}
+.title:hover {
+	color: var(--darkT);
+}
+
+.price {
+	font-weight: 500;
+	font-size: 0.8rem;
+}
+.line {
+	color: var(--greyT);
+}

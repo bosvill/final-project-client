@@ -1,0 +1,78 @@
+.main {
+	width: 100%;
+	background: white;
+}
+
+
+/* .link {
+	background: linear-gradient(125deg, #4b4a4a, #f3f3f3);
+	background-size: 300%;
+	border-radius: 0.3rem;
+	box-shadow: 0.3rem 0.1rem 0.1rem #929191;
+	width: 5rem;
+	height: 1.5rem;
+	box-shadow: 0.3rem 0.1rem 0.1rem #3a3a3a;
+	animation: bganimation 5s infinite alternate;
+} */
+.container {
+	width: 90%;
+	margin: 0 auto;
+	display: flex;
+	justify-content: center;
+	background-color: var(--light);
+	padding: 2rem;
+}
+
+.sidebar {
+	height: 75vh;
+	width: 25%;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	border-right: 0.01rem solid var(--boldT);
+}
+
+.section {
+	height: 75vh;
+	width: 75%;
+	display: grid;
+	padding: 2rem;
+	grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+	grid-auto-columns: max-content;
+	place-content: center;
+	column-gap: 3rem;
+	row-gap: 2rem;
+}
+
+.card {
+	background: linear-gradient(125deg, #555454, #f3f3f3);
+}
+
+.side,
+.card {
+	border-radius: 0.3rem;
+	box-shadow: 0.3rem 0.1rem 0.1rem #333;
+	background-size: 300%;
+	animation: bganimation 5s infinite alternate;
+}
+
+.side {
+	display: flex;
+	flex-direction: column;
+	height: 8rem;
+	gap: 1rem;
+	margin: 0 1rem;
+	background: linear-gradient(125deg, #f3f3f3, #535353);
+	animation: bganimation 5s infinite alternate;
+}
+@keyframes bganimation {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}

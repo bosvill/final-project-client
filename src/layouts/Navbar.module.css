@@ -1,0 +1,29 @@
+.nav {
+	grid-row: span 3;
+	width: 100vw;
+	height: 3rem;
+	background-color: #333333;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.list {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	color: var(--light);
+	gap: 2rem;
+	padding: 0 2rem;
+}
+
+.link {
+	font-size: 1.5;
+	font-weight: 600;
+}
+
+.link:active,
+.link:hover,
+.link:focus {
+	color: var(--greyT);
+}

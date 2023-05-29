@@ -1,0 +1,50 @@
+.container {
+	width: 100%;
+}
+
+.content {
+	width: 25rem;
+	margin: 0 auto;
+	padding: 2rem;
+	color: var(--greyT);
+}
+.centery {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1rem;
+	text-align: left;
+}
+
+.title {
+	font-size: 1.5rem;
+	font-weight: 600;
+	padding: 2rem 0;
+	text-transform: uppercase;
+	text-align: center;
+	color: var(--darkT);
+	text-shadow: 0.05rem 0.05rem 0.05rem #656565b6;
+}
+
+ .fitem {
+	width: 100%;
+	display: flex;
+	flex-flow: column nowrap;
+	gap: 0.5rem;
+}
+.fitem:last-child {
+	margin-top: 1.5rem;
+}
+
+.link {
+	font-size: 0.8rem;
+	
+}
+
+.link:hover {
+	color: var(--darkT);
+}
+
+.error {
+	color: var(--error);
+}

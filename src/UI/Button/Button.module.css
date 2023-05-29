@@ -1,0 +1,19 @@
+.btn {
+	padding:0.6rem 1rem;
+	font-family: inherit;
+	font-weight: 500;
+	font-size: 1.2rem;
+	border: none;
+	background-color: var(--dark);
+	color: var(--light);
+	text-transform: uppercase;
+	cursor: pointer;
+	text-shadow: 0.1rem 0.1rem 0.3rem #656565b6;
+	box-shadow: 0.1rem 0.1rem 0.3rem #656565b6;
+}
+
+.btn:hover,
+.btn:active,
+.btn:focus {
+	opacity: 80%;
+}

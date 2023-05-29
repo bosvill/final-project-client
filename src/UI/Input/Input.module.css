@@ -1,0 +1,25 @@
+.fitem {
+	width: 100%;
+	display: flex;
+	flex-flow: column nowrap;
+	gap: 0.5rem;
+}
+.fitem:last-child {
+	margin-top: 1.5rem;
+}
+
+.input {
+	font-size: 1.2rem;
+	height: 2.5rem;
+	color: var(--darkT);
+	padding: 0.3rem;
+	box-shadow: 0.05rem 0.1rem 0.1rem 0.05rem #656565b6;
+}
+
+.label{
+    color: var(--greyT);
+}
+
+.error{
+    color: var(--error);
+}
