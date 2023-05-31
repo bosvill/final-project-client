@@ -1,0 +1,50 @@
+.content {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.select {
+	appearance: none;
+	height: 2.7rem;
+	text-align: center;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 600;
+	font-size: 1rem;
+	color: var(--darkT);
+	box-shadow: 0.1rem 0.1rem 0.3rem #656565b6;
+    transition: all 0.5s ease-out;
+}
+
+.select:active {
+    appearance: none;
+}
+
+.default {
+	appearance: none;
+	text-align: center;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 1rem;
+	color: var(--greyT);
+}
+.option {
+	appearance: none;
+	width: 9rem;
+	height: 2.7rem;
+	text-align: center;
+	font-size: 1rem;
+    transition: all 0.5s ease-out;
+}
+
+.option:active {
+	height: 3rem;
+	text-align: center;
+	font-size: 1rem;
+	outline: none;
+}
+
+.label {
+	font-size: 0.9rem;
+	font-weight: 500;
+	text-transform: capitalize;
+}

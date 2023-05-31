@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import Searchbar from '../components/Searchbar'
 import ProfileMenu from '../components/ProfileMenu'
 import Navbar from '../layouts/Navbar'
-import ShoppingCart from '../components/ShoppingCart'
+import CartMenu from '../components/CartMenu/CartMenu'
 
 const Header = () => {
 	return (
@@ -14,7 +14,7 @@ const Header = () => {
 				</Link>
 				<div className='icons'>
 					<Searchbar />
-					<ShoppingCart />
+					<CartMenu />
 					<ProfileMenu />
 				</div>
 			</header>

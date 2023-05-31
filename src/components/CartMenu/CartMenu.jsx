@@ -1,12 +1,23 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
-import styles from './ShoppingCart.module.css'
-import CartIcon from '../icons/CartIcon'
-import CloseIcon from '../icons/CloseIcon'
-import Button from '../UI/Button'
+import styles from './CartMenu.module.css'
+import CartIcon from '../../icons/CartIcon'
+import CloseIcon from '../../icons/CloseIcon'
+import Button from '../../UI/Button'
+import { useSelector } from 'react-redux'
 
-const ShoppingCart = () => {
+const CartMenu = () => {
+	const cart = useSelector(state => state.cart) || {}
+	console.log(cart)
+	const getTotalQty = () => {
+		let total = 0
+		cart.forEach(item => {
+			total += item.quantity
+		})
+		console.log(total)
+		return total
+	}
 	return (
 		<div>
 			<DropdownMenu.Root modal={true}>
@@ -16,12 +27,12 @@ const ShoppingCart = () => {
 				<DropdownMenu.Portal>
 					<DropdownMenu.Content sideOffset={10} loop={true} className={styles.cart}>
 						<DropdownMenu.Label className={styles.label}>
-							Your Cart (0)
+							Your Cart ({getTotalQty})
 							<div className={styles.rightslot}>
-								<CloseIcon  className={styles.iconBtn} />
+								<CloseIcon className={styles.iconBtn} />
 							</div>
 						</DropdownMenu.Label>
-						<DropdownMenu.Separator className={styles.separator}/>
+						<DropdownMenu.Separator className={styles.separator} />
 						<DropdownMenu.Item className={styles.label}>
 							Estimated Total
 							<div className={styles.rightslot}>0</div>
@@ -39,4 +50,4 @@ const ShoppingCart = () => {
 	)
 }
 
-export default ShoppingCart
+export default CartMenu

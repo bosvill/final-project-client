@@ -12,3 +12,17 @@
 	/* fill: var(--accent); */
 	stroke: var(--accent);
 }
+
+.iconBtn {
+	padding: 0;
+	margin: 0;
+	border: none;
+	background-color: transparent;
+	cursor: pointer;
+}
+
+.iconBtn:active,
+.iconBtn:hover,
+.iconBtn:focus {
+	outline: none;
+}

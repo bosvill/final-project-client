@@ -99,6 +99,7 @@
 	flex-direction: column;
 	text-align: center;
 	border-bottom: 0.1 solid var(--lightT);
+	transition: all 0.5s ease-out;
 }
 
 .card:hover {
@@ -222,6 +223,7 @@
 	padding-top: 1rem;
 	color: var(--greyT);
 	font-weight: 500;
+	transition: all 0.5s ease-out;
 }
 .footer-links:hover,
 .footer-links:focus {

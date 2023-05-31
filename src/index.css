@@ -51,7 +51,6 @@ body {
 img,
 picture {
 	max-width: 100%;
-	display: block;
 }
 
 /* Inherit fonts for inputs and buttons */
@@ -92,11 +91,11 @@ a {
 
 .fallback-spinner {
 	margin: 0 auto;
-	place-self: center;
-	width: 1rem;
+	/* place-self: center; */
+	width: 3rem;
 	height: 3rem;
-	border: 1rem solid var(--dark);
-	/* border-top: 1rem solid #646cffaa; */
+	border: 0.5rem solid var(--greyT);
+	border-top: 0.5rem solid var(--dark);
 	border-radius: 50%;
 	animation: spinner 1.5s linear infinite;
 }

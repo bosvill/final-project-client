@@ -13,6 +13,7 @@
 	border: none;
 	background-color: transparent;
 	cursor: pointer;
+	transition: all 0.5s ease-out;
 }
 .iconbtn:active,
 .iconbtn:focus,
@@ -42,6 +43,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	transition: all 0.5s ease-out;
 }
 
 .form:focus-visible,
@@ -54,6 +56,7 @@
 	height: 2rem;
 	font-size: 1.2rem;
 	padding: 0.5rem;
+	transition: all 0.5s ease-out;
 }
 
 .input:activ,
