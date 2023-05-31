@@ -1,0 +1,83 @@
+/* object-fit: contain; */
+.carousel {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 600px;
+	height: 720px;
+}
+
+.slide {
+	width: 100%;
+	height: 100%;
+	box-shadow: 0.1rem 0.1rem 0.3rem #656565b6;
+	transition: all 0.5s ease-out;
+}
+
+.slide.hidden {
+	display: none;
+}
+
+.arrowLeft {
+	position: absolute;
+	filter: drop-shadow(0px 0px 5px var(--boldT));
+	width: 2rem;
+	height: 2rem;
+	color: var(--greyT);
+	left: 1rem;
+	transition: all 0.5s ease-out;
+}
+
+.arrowRight {
+	position: absolute;
+	filter: drop-shadow(0px 0px 5px var(--boldT));
+	width: 2rem;
+	height: 2rem;
+	color: var(--greyT);
+	right: 1rem;
+	transition: all 0.5s ease-out;
+}
+
+.arrowRight:hover,
+.arrowLeft:hover {
+	cursor: pointer;
+}
+.previews {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	width: 100px;
+}
+
+.preview {
+	height: 100%;
+
+	margin: 0;
+	padding: 0;
+	outline: none;
+	cursor: pointer;
+	box-shadow: 0.1rem 0.1rem 0.3rem #656565b6;
+	transition: all 0.5s ease-out;
+}
+
+.preview.active {
+	outline: none;
+	border: 2px solid var(--darkT);
+}
+
+.btn {
+	padding: 0;
+	margin: 0;
+	cursor: pointer;
+	transition: all 0.5s ease-out;
+}
+
+.btn.active,
+.btn:focus {
+	border: 2px solid var(--greyT);
+}
+
+.btn:hover {
+	border: 2px solid var(--boldT);
+}

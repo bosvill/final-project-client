@@ -8,6 +8,7 @@ import OrderIcon from '../../icons/OrderIcon'
 import LoginIcon from '../../icons/LoginIcon'
 import LogoutIcon from '../../icons/LogoutIcon'
 import ContactIcon from '../../icons/ContactIcon'
+import SignupIcon from '../../icons/SignupIcon'
 import styles from './ProfileMenu.module.css'
 
 const ProfileMenu = () => {
@@ -25,9 +26,9 @@ const ProfileMenu = () => {
 						{Object.keys(user).length ? (
 							<DropdownMenu.Item className={styles.menu}>
 								<div className={styles.user}>
-											<h6 className={styles.name}>{user?.name}</h6>
-											<p>{user?.email}</p>
-										</div>
+									<h6 className={styles.name}>{user?.name}</h6>
+									<p>{user?.email}</p>
+								</div>
 							</DropdownMenu.Item>
 						) : (
 							<DropdownMenu.Item className={styles.menu}>
@@ -57,6 +58,13 @@ const ProfileMenu = () => {
 							<Link to='/contact-us' key='contact' className={styles.item}>
 								<ContactIcon />
 								<p>Contact</p>
+							</Link>
+						</DropdownMenu.Item>
+						<DropdownMenu.Separator className={styles.separator} />
+						<DropdownMenu.Item className={styles.menu}>
+							<Link to='/sign-up' key='signup' className={styles.item}>
+								<SignupIcon />
+								<p>No account? Sign Up</p>
 							</Link>
 						</DropdownMenu.Item>
 						{/* <DropdownMenu.Arrow className={styles.arrow}/> */}

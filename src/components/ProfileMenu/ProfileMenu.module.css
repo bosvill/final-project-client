@@ -1,5 +1,5 @@
 .profile {
-	width: 15rem;
+	min-width: 20rem;
 	padding: 1rem;
 	background-color: white;
 	opacity: 98%;
@@ -39,7 +39,7 @@
 	align-items: center;
 	justify-content: flex-start;
 	gap: 0.5rem;
-	width: 10rem;
+	min-width: 15rem;
 	padding: 0.5rem;
 }
 
