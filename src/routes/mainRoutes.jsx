@@ -8,8 +8,14 @@ import Store from '../pages/store'
 import Login from '../pages/user/Login'
 import ForgotPassword from '../pages/user/ForgotPassword'
 import Signup from '../pages/user/Signup'
+import Contact from '../pages/user/Contact'
+import Profile from '../pages/user/Profile'
+import Orders from '../pages/user/Orders'
+import Checkout from '../pages/user/Checkout'
+import Cart from '../pages/user/Cart'
 import ProductDetails from '../pages/product/ProductDetails'
 import { productLoader } from '../utils/loaders'
+import About from './../pages/About'
 
 const Home = lazy(() => import('../pages/Home'))
 
@@ -53,19 +59,11 @@ const mainRoutes = {
 			)
 		},
 
-		/* {
+		{
 			path: '/contact-us',
 			element: (
 				<SplitRouter>
 					<Contact />
-				</SplitRouter>
-			)
-		},
-		{
-			path: '/about-us',
-			element: (
-				<SplitRouter>
-					<About />
 				</SplitRouter>
 			)
 		},
@@ -81,10 +79,21 @@ const mainRoutes = {
 			path: '/my-order',
 			element: (
 				<SplitRouter>
-					<Order />
+					<Orders />
 				</SplitRouter>
 			)
-		}, */
+		},
+
+		{
+			path: '/about',
+			element: (
+				<SplitRouter>
+					<About />
+				</SplitRouter>
+			)
+		},
+
+		{ path: '/cart', element: <Cart />, children: [{ path: 'checkout', element: <Checkout /> }] },
 		{
 			path: '/product/:pid',
 			element: <ProductDetails />,

@@ -10,7 +10,7 @@
 .svg:active,
 .svg:focus {
 	/* fill: var(--accent); */
-	stroke: var(--accent);
+	stroke: var(--accentL);
 }
 
 .iconBtn {
@@ -26,3 +26,21 @@
 .iconBtn:focus {
 	outline: none;
 }
+
+.red{
+	padding: 0;
+	margin: 0;
+	border: none;
+	 background-color: transparent; 
+	cursor: pointer;
+	
+	color: #ef4444;
+}
+
+.red:hover,
+.red:active,
+.red:focus {
+	stroke:var(--accentL);
+	outline:none;
+}
+

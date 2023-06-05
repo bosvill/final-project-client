@@ -1,10 +1,10 @@
 import React from 'react'
 import styles from './Icon.module.css'
 
-const OrderIcon = () => {
-	//{...props}
+const OrderIcon = (props) => {
+	
 	return (
-		<svg width='24' height='24' viewBox='0 0 24 24' fill='none' className={styles.svg}>
+		<svg width='24' height='24' viewBox='0 0 24 24' fill='none' className={styles.svg} {...props}>
 			<path
 				d='M8 12.2H15'
 				stroke='currentColor'

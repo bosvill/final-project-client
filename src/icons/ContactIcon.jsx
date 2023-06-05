@@ -1,9 +1,10 @@
 import React from 'react'
 import styles from './Icon.module.css'
 
-const ContactIcon = () => {
+const ContactIcon = (props) => {
 	return (
 		<svg
+		{...props}
 		className={styles.svg}
 			width='24'
 			height='24'

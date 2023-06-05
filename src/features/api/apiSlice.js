@@ -13,6 +13,7 @@ const apiSlice = createApi({
     "Product",
     "Store",
     "Subcategory",
+    "Cart"
   ],
   endpoints: () => ({}),
 });

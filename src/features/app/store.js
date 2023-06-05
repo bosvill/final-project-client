@@ -4,16 +4,38 @@ import uploadSlice from '../upload/uploadSlice.js'
 import authSlice from '../auth/authSlice.js'
 import updateSlice from '../update/updateSlice.js'
 import { cartReducer } from './cartSlice.js'
+import storage from 'redux-persist/lib/storage';
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist'
 
-const store = configureStore({
+const persistConfig = {
+	key: 'root',
+	storage,
+  }
+  
+  const persistedReducer = persistReducer(persistConfig, cartReducer)
+
+  export const store = configureStore({
 	reducer: {
 		[apiSlice.reducerPath]: apiSlice.reducer,
 		upload: uploadSlice,
 		update: updateSlice,
 		auth: authSlice,
-		cart: cartReducer
+		cart: persistedReducer
 	},
-	middleware: getDefaultMiddleware => getDefaultMiddleware().concat(apiSlice.middleware)
+	middleware: getDefaultMiddleware => getDefaultMiddleware({
+    serializableCheck: {
+      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+    },
+  }).concat(apiSlice.middleware)
 })
 
-export default store
+ export const persistor = persistStore(store)

@@ -3,6 +3,7 @@ import * as Popover from '@radix-ui/react-popover'
 import SearchIcon from '../../icons/SearchIcon'
 import Search from './Search'
 import styles from './Search.module.css'
+import CloseIcon from '../../icons/CloseIcon'
 
 const Searchbar = () => {
 	return (
@@ -12,7 +13,10 @@ const Searchbar = () => {
 					<SearchIcon />
 				</Popover.Trigger>
 				<Popover.Portal>
-					<Popover.Content side='left' sideOffset='5' role='modal' className={styles.content}>
+					<Popover.Content side='left' sideOffset='2' role='modal' className={styles.content}>
+						{/* <Popover.Close className='PopoverClose' aria-label='Close'>
+							<CloseIcon />
+						</Popover.Close> */}
 						<Search />
 					</Popover.Content>
 				</Popover.Portal>
