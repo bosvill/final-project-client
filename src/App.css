@@ -6,7 +6,7 @@
 	--lightT: #cbcbcb;
 	--boldT: #bfbfbf;
 	--accent: #5d2f91;
-	--accentL: #7b55a6;
+	--accentL: #d76038ef;
 	--error: #ef4444;
 	--shadow: 1px 1px 3px rgb(0 0 0 / 0.2);
 }
@@ -56,7 +56,7 @@
 	padding: 0 2rem;
 	justify-content: center;
 	align-items: center;
-	gap: 1rem;
+	gap: 1.5rem;
 }
 
 @media (max-width: 640px) {

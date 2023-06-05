@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom'
 import Searchbar from '../components/Searchbar'
 import ProfileMenu from '../components/ProfileMenu'
 import Navbar from '../layouts/Navbar'
-import CartMenu from '../components/CartMenu/CartMenu'
+import CartMenu from '../components/CartMenu'
 
 const Header = () => {
 	return (
 		<div className='top-container'>
 			<header className='header'>
 				<Link to='/'>
-					<img src='/cortado3.svg' alt='' className='logo' />
+					<img src='/logo.png' alt='' className='logo' />
 				</Link>
 				<div className='icons'>
 					<Searchbar />

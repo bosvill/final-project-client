@@ -1,51 +1,74 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
+import { Link, useNavigate } from 'react-router-dom'
+import * as Popover from '@radix-ui/react-popover'
 import styles from './CartMenu.module.css'
 import CartIcon from '../../icons/CartIcon'
 import CloseIcon from '../../icons/CloseIcon'
 import Button from '../../UI/Button'
+import CartMenuItem from './CartMenuItem'
+import { getSubTotal } from '../../utils/cart'
 import { useSelector } from 'react-redux'
+import { v4 } from 'uuid'
 
 const CartMenu = () => {
-	const cart = useSelector(state => state.cart) || {}
-	console.log(cart)
-	const getTotalQty = () => {
-		let total = 0
-		cart.forEach(item => {
-			total += item.quantity
-		})
-		console.log(total)
-		return total
-	}
+	const navigate = useNavigate()
+	const { cart } = useSelector(state => state.cart)
+	//console.log(cart)
+	const subtotal = getSubTotal(cart).totalPrice
+	const totalQty = getSubTotal(cart).totalQuantity
+	
 	return (
 		<div>
-			<DropdownMenu.Root modal={true}>
-				<DropdownMenu.Trigger className={styles.iconBtn}>
-					<CartIcon />
-				</DropdownMenu.Trigger>
-				<DropdownMenu.Portal>
-					<DropdownMenu.Content sideOffset={10} loop={true} className={styles.cart}>
-						<DropdownMenu.Label className={styles.label}>
-							Your Cart ({getTotalQty})
+			<Popover.Root modal={true}>
+				<Popover.Trigger className={styles.iconBtn}>
+					<div className={styles.badgeBtn}>
+						{cart.length >= 1 ? (
+							<span className={styles.badge}>{totalQty}</span>
+						) : null}
+						<CartIcon />
+					</div>
+				</Popover.Trigger>
+				<Popover.Portal>
+					<Popover.Content sideOffset={20} className={styles.cart}>
+						<div className={styles.label} key={v4()}>
+							Your Bag ( {totalQty} )
 							<div className={styles.rightslot}>
 								<CloseIcon className={styles.iconBtn} />
 							</div>
-						</DropdownMenu.Label>
-						<DropdownMenu.Separator className={styles.separator} />
-						<DropdownMenu.Item className={styles.label}>
-							Estimated Total
-							<div className={styles.rightslot}>0</div>
-						</DropdownMenu.Item>
-						<DropdownMenu.Item className='DropdownMenuItem'>
-							<Button children='View Cart' />
-						</DropdownMenu.Item>
-						<DropdownMenu.Item className={styles.link}>
-							<Link to='/'>Continue shopping</Link>
-						</DropdownMenu.Item>
-					</DropdownMenu.Content>
-				</DropdownMenu.Portal>
-			</DropdownMenu.Root>
+						</div>
+						<hr className={styles.separator} />
+						{!cart.length ? (
+							<div key={v4()}>
+								<h6 className={styles.cartEmpty}>Your shopping bag is currently empty</h6>
+								<Button children='Start shopping' onClick={() => navigate('..')} />
+							</div>
+						) : (
+							cart.map(el => (
+								<>
+									<div key={v4()} className={styles.item}>
+										<CartMenuItem key={v4()} {...el} />
+									</div>
+									<hr className={styles.separator} key={v4()} />
+								</>
+							))
+						)}
+						{cart.length >= 1 ? (
+							<>
+								<div className={styles.label}>
+									Estimated Total
+									<div className={styles.rightslot}>€ {subtotal}</div>
+								</div>
+								<div className='PopoverItem'>
+									<Button children='Checkout' onClick={() => navigate('/cart')} />
+								</div>
+								<div className={styles.link}>
+									<Link to='..'>Continue shopping</Link>
+								</div>
+							</>
+						) : null}
+					</Popover.Content>
+				</Popover.Portal>
+			</Popover.Root>
 		</div>
 	)
 }

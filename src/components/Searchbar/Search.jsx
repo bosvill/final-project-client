@@ -5,7 +5,7 @@ import { useDisplayProductsQuery } from '../../features/product/productApi'
 import { useNavigate } from 'react-router-dom'
 
 const Search = () => {
-	const [input, setInput] = React.useState('')
+	const [input, setInput] = useState('')
 	const [searchedProducts, setSearchedProducts] = useState([])
 	const [searchProduct, setSearchProduct] = useState({})
 	const { data: productsData, isLoading: isProductsLoading } = useDisplayProductsQuery({

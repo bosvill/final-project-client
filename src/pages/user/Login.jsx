@@ -37,7 +37,7 @@ const Login = () => {
 				toast.success('Welcome back!', {
 					id: 'signin_user'
 				})
-				navigate('/')
+				navigate('..')
 			} else {
 				console.log(apiResult.message)
 				toast.error(apiResult.message, {

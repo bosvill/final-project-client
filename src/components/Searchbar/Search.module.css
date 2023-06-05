@@ -32,6 +32,7 @@
 	justify-content: center;
 	align-items: center;
 	gap: 1rem;
+	
 }
 .centerx {
 	display: flex;
@@ -40,6 +41,7 @@
 	gap: 1rem;
 }
 .form {
+	min-width: 25rem;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -49,6 +51,7 @@
 .form:focus-visible,
 .form:active {
 	outline: none;
+	
 }
 .input {
 	border: none;
@@ -66,6 +69,7 @@
 }
 
 .search {
+	min-width: 25rem;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;

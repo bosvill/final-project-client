@@ -57,7 +57,7 @@
 	padding: 0;
 	outline: none;
 	cursor: pointer;
-	box-shadow: 0.1rem 0.1rem 0.3rem #656565b6;
+	box-shadow: 0.1rem 0.1rem 0.3rem var(--boldT);
 	transition: all 0.5s ease-out;
 }
 

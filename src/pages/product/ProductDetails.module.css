@@ -80,3 +80,27 @@
 	font-weight: 500;
 	text-align: left;
 }
+
+.li {
+	display: flex;
+	flex-direction: column;
+}
+.smallText{
+	font-size: 0.8rem;
+	font-weight: 600;
+	color: var(--greyT);
+	padding-bottom: 1rem;
+}
+
+.boldText{
+	font-size: 1rem;
+	font-weight: 600;
+}
+.icons{
+	display: flex;
+	gap: 1rem;
+}
+.icon {
+	width: 24px;
+	height: 24px;
+}

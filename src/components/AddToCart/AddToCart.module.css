@@ -26,6 +26,7 @@
 	display: flex;
 	align-items: center;
 	gap: 1rem;
+	padding: 1rem 0;
 }
 
 .color {
@@ -45,7 +46,7 @@
 	border-radius: 50%;
 	cursor: pointer;
     background-color: transparent;
-    border: 2px solid var(--greyT);
+    border: 1px solid var(--darkT);
 	transition: all 0.5s ease-out;
 }
 .color:active,

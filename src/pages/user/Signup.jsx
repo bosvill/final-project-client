@@ -59,6 +59,7 @@ const Signup = () => {
 				isSuccess: result.data.acknowledgement,
 				message: result.data.description
 			})
+			navigate('/sign-in')
 		}
 	}
 
@@ -66,7 +67,7 @@ const Signup = () => {
 		<main className={styles.container}>
 			<div className={styles.content}>
 				<h3 className={styles.title}>Create your account</h3>
-				<form action='' className={styles.centery} onSubmit={handleSubmit(handleSignupForm)}>
+				<form className={styles.centery} onSubmit={handleSubmit(handleSignupForm)}>
 					<Input
 						name='name'
 						type='text'

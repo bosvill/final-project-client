@@ -1,12 +1,15 @@
 .btn {
-	object-fit: contain;
+	appearance: none;
+	/* object-fit: contain;
 	outline: none;
 	padding: 0;
 	margin: 0;
 	border: none;
-	background-color: transparent;
-	cursor: pointer;
+	background-color: transparent; 
 	box-shadow: 0.1rem 0.1rem 0.3rem #656565b6;
+	*/
+	cursor: pointer;
+	
 	transition: all 0.5s ease-out;
 }
 
