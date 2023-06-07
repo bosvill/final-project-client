@@ -1,26 +1,39 @@
 .filter {
-    width: 75%;
-    min-height: 70vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+	width: 75%;
+	min-height: 70vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	gap: 2rem;
+	padding: 1rem;
 }
 
-.filterHeader{
-    font-size: 1.5rem;
-    font-weight: 700;
+.filterHeader {
+	font-size: 1.5rem;
+	font-weight: 700;
 }
 
-.filterWrapper{
-    display: flex;
-    gap: 3rem;
-    justify-content: space-around;
+.filterWrapper {
+	display: flex;
+	gap: 3rem;
+	justify-content: space-around;
 }
-.filterImg{
-    width: 8rem;
+.filterImg {
+	width: 8rem;
 }
 
-.description{
-    width: 80%;
+.description {
+	width: 80%;
+}
+
+.grid {
+	width: 75%;
+	display: grid;
+	column-gap: 3rem;
+	row-gap: 2rem;
+	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+	grid-auto-rows: auto;
+	place-content: center;
+	padding: 2rem;
 }

@@ -15,7 +15,7 @@ const Store = () => {
 			{isLoading ? (
 				<StoreSkeleton />
 			) : (
-				<section className={styles.grid}>{products.length ? products.map(el => <ProductCard product={el} key={el._id} />) : null}</section>
+				<section className={styles.grid}>{products.length ? products.map(el => <ProductCard product={el} key={el._id} />) : <h1>No products found..</h1>}</section>
 			)}
 		</>
 	)

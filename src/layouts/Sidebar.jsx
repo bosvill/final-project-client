@@ -69,7 +69,7 @@ const Sidebar = () => {
 				<div className={styles.centery}>
 					<Select.Root value={brand} onValueChange={setBrand}>
 						<Select.Trigger className={styles.trigger}>
-							<Select.Value placeholder='Designer'/>
+							<Select.Value placeholder='Designer' />
 							<Select.Icon />
 						</Select.Trigger>
 						<Select.Content className={styles.select} position='popper'>
@@ -78,14 +78,21 @@ const Sidebar = () => {
 									? null
 									: brands.map(el => (
 											<>
-												<Select.Item
+												<Link
+													to={`${store}/${el.title}/${el._id}`}
+													className={styles.item}
+													key={v4()}>
+													{' '}
+													{el.title}
+												</Link>
+												{/* <Select.Item
 													asChild
 													key={v4()}
 													value={ el.title }
 													className={styles.item}>
 													<Select.ItemText>{el.title}</Select.ItemText>
 												</Select.Item>
-												<Select.Separator className={styles.separator} />
+												<Select.Separator className={styles.separator} /> */}
 											</>
 									  ))}
 							</Select.Viewport>

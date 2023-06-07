@@ -12,7 +12,7 @@ import ProductCard from '../ProductCard/ProductCard'
 const Filter = () => {
 	const { store } = useParams()
 	const { filter } = useParams()
-	//const { fid } = useParams()
+	const { fid } = useParams()
 	const [explore, setExplore] = useState(filter)
 	const { data: brandData, isLoading: isBrandsLoading } = useDisplayBrandQuery(fid)
 	const { data: categoriesData, isLoading: isCategoriesLoading } = useDisplayCategoriesQuery({
@@ -37,7 +37,7 @@ const Filter = () => {
 
 	const brand = brandData?.data || []
 	const products = productsData?.data
-	const filteredProducts = products.filter(el => el.brand === fid)
+	const filteredProducts = products.filter(el => el.brand?._id === fid)
 	console.log('brand:',brand)
 	
 	console.log(filter)
@@ -57,7 +57,7 @@ const Filter = () => {
 			</a>
 			<p className={styles.description}> {brand.description}</p>
 			</div>
-			<section>
+			<section className={styles.grid}>
 {filteredProducts.map(el=><ProductCard key={el.id} product={el}/>)}
 			</section>
 		</section>
