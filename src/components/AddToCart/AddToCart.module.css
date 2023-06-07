@@ -1,19 +1,21 @@
 .form {
+	width: 100%;
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
 	gap: 1rem;
-	text-align: left;
 }
 
 .label {
-    font-family: 'Montserrat', sans-serif;
+	font-family: 'Montserrat', sans-serif;
 	font-size: 1rem;
 	font-weight: 700;
 	text-transform: capitalize;
-    color: var(--greyT);
+	color: var(--greyT);
 }
 
-.formItem {
+.fitem {
+	width: 100%;
 	display: flex;
 	flex-direction: column;
 	gap: 0.5rem;
@@ -23,34 +25,72 @@
 	margin-bottom: 1rem;
 }
 .colors {
+	
 	display: flex;
+	justify-content: center;
 	align-items: center;
 	gap: 1rem;
 	padding: 1rem 0;
 }
 
 .color {
-	width: 2rem;
-	height: 2rem;
+	
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 1.75rem;
+	height: 1.75rem;
 	border-radius: 50%;
 	cursor: pointer;
 	transition: all 0.5s ease-out;
 }
 
- .active {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.active {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	width: 2.5rem;
 	height: 2.5rem;
 	border-radius: 50%;
 	cursor: pointer;
-    background-color: transparent;
-    border: 1px solid var(--darkT);
+	background-color: transparent;
+	border: 1px solid var(--darkT);
 	transition: all 0.5s ease-out;
 }
 .color:active,
 .color:hover,
 .color:focus {
 	opacity: 80%;
+}
+
+@media (min-width: 880px) {
+	.form {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		
+		gap: 1rem;
+		text-align: left;
+	}
+
+	.fitem {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		
+		align-items: flex-start;
+		gap: 0.5rem;
+	}
+
+	.colors {
+		align-self: flex-start;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+
+	}
+
+	
 }

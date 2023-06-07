@@ -1,89 +1,128 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
-import LazyLoadingImage from '../../components/LazyLoadingImage'
-import NumberInput from '../../components/NumberInput'
+//import NumberInput from '../../components/NumberInput'
+import Summary from '../../components/Summary'
+import CheckoutModal from '../../components/CheckoutModal/CheckoutModal'
 import Input from '../../UI/Input'
 import Button from '../../UI/Button'
+import Radio from '../../UI/Radio'
 import styles from './Checkout.module.css'
+import { getSubTotal } from '../../utils/cart'
+import Cards from 'react-credit-cards-2'
+import 'react-credit-cards-2/dist/es/styles-compiled.css'
 
 const Checkout = () => {
+	const [shipping, setShipping] = useState(12)
+
+	const [open, setOpen] = useState(false);
+
+	const { user, isLoading } = useSelector(state => state.auth)
+	const { cart } = useSelector(state => state.cart)
+
+	/* const [cardNumber, setCardNumber] = useState('')
 	const getImageUrl = imgName => '/assets/checkout/' + imgName
+	const [cardIcon, setCardIcon] = useState(getImageUrl('unknown.png')) */
 
-	const [isOpen, setIsOpen] = useState(false)
-	const [cardNumber, setCardNumber] = useState('')
-	const [cardIcon, setCardIcon] = useState(getImageUrl('unknown.png'))
+	const { name, email, phone, address } = user
 
-	const {
-		auth: {
-			user: { name, email, phone, address, cart }
-		}
-	} = useSelector(state => state)
 	const {
 		register,
 		handleSubmit,
-		formState: { errors }
+		formState: { errors },
+		setValue
 	} = useForm({
 		defaultValues: {
 			name,
 			email,
 			phone,
-			address,
-			cardHolder: name
+			address
 		}
 	})
 
-	// find subtotal from cart
-	let subtotal = 0
-	cart?.forEach(item => {
-		subtotal += item?.product?.price * item?.quantity
+	useEffect(() => {
+		if (subtotal >= 200 && shipping == 12) {
+			setShipping(0)
+			console.log(shipping)
+		}
+		if (subtotal <= 200 && shipping == 12) {
+			setShipping(12)
+		}
+	}, [])
+
+	const [state, setState] = useState({
+		number: '',
+		name: '',
+		expiry: '',
+		cvc: '',
+		focus: ''
 	})
 
-	const getCardType = cardNumber => {
-		let visaRegEx = /^4[0-9]{12}(?:[0-9]{3})?$/
-		let mastercardRegEx = /^5[1-5][0-9]{14}$/
-		let amexRegEx = /^3[47][0-9]{13}$/
-		let discoverRegEx = /^6(?:011|5[0-9]{2})[0-9]{12}$/
-		if (visaRegEx.test(cardNumber)) {
-			return 'Visa'
-		} else if (mastercardRegEx.test(cardNumber)) {
-			return 'Mastercard'
-		} else if (amexRegEx.test(cardNumber)) {
-			return 'American Express'
-		} else if (discoverRegEx.test(cardNumber)) {
-			return 'Discover'
-		} else {
-			return 'Unknown'
-		}
+	const handleInputChange = evt => {
+		const { name, value } = evt.target
+		setState(prev => ({ ...prev, [name]: value }))
+		setValue('cardHolder', state.name)
+		setValue(`${name}`, state[name])
 	}
 
-	const detectCardType = cardNumber => {
-		setCardNumber(cardNumber)
-
-		let cardType = getCardType(cardNumber)
-
-		if (cardType === 'Visa') {
-			setCardIcon(getImageUrl('visa.png'))
-		} else if (cardType === 'Mastercard') {
-			setCardIcon(getImageUrl('mastercard.png'))
-		} else if (cardType === 'American Express') {
-			setCardIcon(getImageUrl('amex.png'))
-		} else {
-			setCardIcon(getImageUrl('unknown.png'))
-		}
+	const handleInputFocus = evt => {
+		setState(prev => ({ ...prev, focus: evt.target.name }))
 	}
+
+	const subtotal = getSubTotal(cart).totalPrice
 
 	const handlePayment = data => {
-		console.log(errors)
-		setIsOpen(true)
+		console.log(errors, data)
+		setOpen(true)
 	}
 
 	return (
 		<div className={styles.cartContainer}>
 			<main className={styles.cart}>
 				<h1 className={styles.cartTitle}>Checkout</h1>
-				<form onSubmit={handleSubmit(handlePayment)}>
-					<section>
+
+				
+					<section className={styles.delivery}>
+						<div className={styles.titleWrapper}>
+							<h5 className={styles.sectionTitle}>Select delivery method</h5>
+						</div>
+						
+							<div className={styles.sectionItem}>
+								<Radio
+									name='shipping'
+									value={subtotal >= 200 ? 0 : 12}
+									label='Standard (4-7 business days)'
+									onChange={e => setShipping(e.target.value)}
+								/>
+								<span className={styles.price}>€ 12</span>
+							</div>
+							<div className={styles.sectionItem}>
+								<Radio
+									name='shipping'
+									value={20}
+									label='Express * (1-2 business days)'
+									onChange={e => setShipping(e.target.value)}
+								/>
+								<span className={styles.price}>€ 20</span>
+							</div>
+							<div className={styles.sectionItem}>
+								<Radio
+									name='shipping'
+									value={35}
+									label='Guaranteed delivery Saturday morning'
+									onChange={e => setShipping(e.target.value)}
+								/>
+								<span className={styles.price}>€ 35</span>
+							</div>
+					</section>
+					<Summary
+					shipping={shipping}
+					subtotal={subtotal}
+					btn='Confirm Payment'
+					handleClick={handlePayment}
+				/>
+				<form onSubmit={handleSubmit(handlePayment)} className={styles.form}>
+					<section className={styles.userData}>
 						<div className={styles.titleWrapper}>
 							<h5 className={styles.sectionTitle}>Shipping Address</h5>
 						</div>
@@ -127,14 +166,92 @@ const Checkout = () => {
 							register={register}
 						/>
 					</section>
-					<section>
+
+					<section className={styles.userData}>
 						<div className={styles.titleWrapper}>
 							<h5 className={styles.sectionTitle}>Payment Details</h5>
 						</div>
-						<NumberInput
+						<div className={styles.form}>
+							<Cards
+								number={state.number}
+								expiry={state.expiry}
+								cvc={state.cvc}
+								name={state.name}
+								focused={state.focus}
+							/>
+							<div className={styles.form}>
+								<div className={styles.fitem}>
+									<label htmlFor={name} className={styles.label}>
+										Card Number
+									</label>
+									<input
+										type='number'
+										name='number'
+										className={styles.input}
+										value={state.number}
+										onChange={handleInputChange}
+										onFocus={handleInputFocus}
+										/* {...(register && register(name, { required: true }))} */
+									/>
+								</div>
+
+								<div className={styles.fitem}>
+									<label htmlFor={name} className={styles.label}>
+										Card Holder
+									</label>
+
+									<input
+										type='text'
+										name='name'
+										className={styles.input}
+										value={state.name}
+										onChange={handleInputChange}
+										onFocus={handleInputFocus}
+										/* {...(register && register(name, { required: true }))} */
+									/>
+								</div>
+							</div>
+							<div>
+								<div className={styles.expire}>
+									<div className={styles.fitem}>
+										<label htmlFor={name} className={styles.label}>
+											Expiry
+										</label>
+										<input
+											type='tel'
+											name='expiry'
+											className={styles.input}
+											value={state.expiry}
+											pattern='\d\d/\d\d'
+											onChange={handleInputChange}
+											onFocus={handleInputFocus}
+											/* {...(register && register(name, { required: true }))} */
+										/>
+									</div>
+									<div className={styles.fitem}>
+										<label htmlFor={name} className={styles.label}>
+											CVC
+										</label>
+										<input
+											type='tel'
+											name='cvc'
+											className={styles.input}
+											value={state.cvc}
+											pattern='\d{3,4}'
+											onChange={handleInputChange}
+											onFocus={handleInputFocus}
+											/* {...(register && register(name, { required: true }))} */
+										/>
+									</div>
+								</div>
+							</div>
+						</div>
+						{/* <NumberInput
 							name='cardNumber'
 							id='cardNumber'
 							value={cardNumber}
+							label='Card number'
+							errors={errors.cardNumber}
 							rules={{ required: true }}
 							register={register}
 							onChange={detectCardType}
@@ -147,7 +264,7 @@ const Checkout = () => {
 							register={register}
 							rules={{ required: true }}
 						/>
-						<div>
+						<div className={styles.expire}>
 							<Input
 								{...register('expMonth', { required: true })}
 								name='expMonth'
@@ -164,22 +281,25 @@ const Checkout = () => {
 								rules={{ required: true }}
 								register={register}
 							/>
+						</div>
+						<div className={styles.expire}>
 							<Input
 								name='ccv'
 								type='text'
 								placeholder='000'
-								rules={{ required: true }}
+								rules={{ required: true, maxLength: 16 }}
 								register={register}
 							/>
-						</div>
-						<div>
-							<LazyLoadingImage src={cardIcon} width='120' height='160' />
-						</div>
+							<div className={styles.cardImg}>
+								<img src={cardIcon} width='160' height='80' className={styles.cardImg} />
+							</div>
+						</div> */}
 					</section>
 					<div className={styles.fitem}>
 						<Button type='submit' children='Confirm Payment' />
 					</div>
 				</form>
+				{open && <CheckoutModal open={open} setOpen={setOpen} />}
 			</main>
 		</div>
 	)

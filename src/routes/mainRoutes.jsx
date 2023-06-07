@@ -1,4 +1,5 @@
 import { lazy } from 'react'
+import { useSelector } from 'react-redux'
 import SplitRouter from './SplitRouter'
 import ComingSoon from '../pages/ComingSoon'
 import Main from '../layouts/Main'
@@ -15,7 +16,12 @@ import Checkout from '../pages/user/Checkout'
 import Cart from '../pages/user/Cart'
 import ProductDetails from '../pages/product/ProductDetails'
 import { productLoader } from '../utils/loaders'
-import About from './../pages/About'
+import About from '../pages/About/About'
+import Filter from '../components/Filter/Filter'
+import Brand from '../components/Brand/Brand'
+import WishList from '../components/WishList'
+import PrivateRoute from '../features/app/PrivateRoute'
+import Shipping from '../pages/Shipping/Shipping'
 
 const Home = lazy(() => import('../pages/Home'))
 
@@ -70,9 +76,9 @@ const mainRoutes = {
 		{
 			path: '/my-profile',
 			element: (
-				<SplitRouter>
+				<PrivateRoute>
 					<Profile />
-				</SplitRouter>
+				</PrivateRoute>
 			)
 		},
 		{
@@ -80,6 +86,14 @@ const mainRoutes = {
 			element: (
 				<SplitRouter>
 					<Orders />
+				</SplitRouter>
+			)
+		},
+		{
+			path: '/shipping',
+			element: (
+				<SplitRouter>
+					<Shipping />
 				</SplitRouter>
 			)
 		},
@@ -93,13 +107,53 @@ const mainRoutes = {
 			)
 		},
 
-		{ path: '/cart', element: <Cart />, children: [{ path: 'checkout', element: <Checkout /> }] },
+		{
+			path: '/cart',
+			element: <Cart />
+		},
+		{
+			path: '/cart/checkout',
+			element: (
+				<PrivateRoute>
+					<Checkout />
+				</PrivateRoute>
+			)
+		},
+		{
+			path: '/wishlist',
+			element: (
+				<PrivateRoute>
+					<WishList />
+				</PrivateRoute>
+			)
+		},
 		{
 			path: '/product/:pid',
 			element: <ProductDetails />,
 			loader: productLoader
 		},
-		{ element: <StoreLayout />, children: [{ path: ':store', element: <Store /> }] },
+		{
+			element: <StoreLayout />,
+			children: [
+				{ path: ':store', element: <Store /> } /*  ,
+				{
+					path: ':store/:brand',
+					element: (
+						<SplitRouter>
+							<Brand />
+						</SplitRouter>
+					)
+				} */,
+				{
+					path: ':store/:brand/:fid',
+					element: (
+						<SplitRouter>
+							<Filter />
+						</SplitRouter>
+					)
+				}
+			]
+		},
 		{
 			path: '*',
 			element: (

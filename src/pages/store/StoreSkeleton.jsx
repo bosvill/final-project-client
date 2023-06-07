@@ -3,12 +3,7 @@ import styles from './StoreSkeleton.module.css'
 
 const StoreSkeleton = () => {
 	return (
-		<main className={styles.main}>
-			<nav>
-				{[1, 2, 3, 4, 5].map(el => (
-					<div key={el} className={styles.link}></div>
-				))}
-			</nav>
+		
 			<section className={styles.container}>
 				<aside className={styles.sidebar}>
 					{[1, 2, 3, 4].map(el => (
@@ -21,7 +16,7 @@ const StoreSkeleton = () => {
 					))}
 				</section>
 			</section>
-		</main>
+	
 	)
 }
 

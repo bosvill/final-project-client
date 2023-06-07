@@ -56,6 +56,7 @@ const ProductDetails = () => {
 					</ul>
 				</article>
 				<div className={styles.line}></div>
+				<div className={styles.delivery}>
 				<article className={styles.detail}>
 				<div className={styles.icons}>
 				<div className={styles.icon}><TruckIcon/></div>	
@@ -90,6 +91,7 @@ const ProductDetails = () => {
 						</li>
 					</ul>
 				</article>
+				</div>
 			</div>
 		</main>
 	)

@@ -5,3 +5,7 @@ export function availableColors(arr) {
 export function filterSizesByColor(array, color) {
 	return array.filter(item => item.color === color).map(item => item.size)
 }
+
+export function availableColorNames(arr) {
+	return [...new Set(arr.map(el =>el.colorName))]
+}

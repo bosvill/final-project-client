@@ -17,8 +17,11 @@ const CartItem = ({ _id, title, price, size, color, quantity, thumbnail }) => {
 				<Link className={styles.titleLink} to={`/product/${_id}`}>
 					{title}
 				</Link>
-				<p className={styles.size}>Size {size}</p>
-				<p className={styles.color}>{color}</p>
+				<p className={styles.size}> {size}</p>
+				<div className={styles.color}>
+					<button name='color' className={styles.color} style={{ backgroundColor: color }} />
+				</div>
+				{/* <p className={styles.color}> {color}</p> */}
 			</div>
 			<div className={styles.quantityWrapper}>
 				<div className={styles.quantity}>

@@ -13,7 +13,7 @@ import { v4 } from 'uuid'
 const CartMenu = () => {
 	const navigate = useNavigate()
 	const { cart } = useSelector(state => state.cart)
-	//console.log(cart)
+	console.log(cart)
 	const subtotal = getSubTotal(cart).totalPrice
 	const totalQty = getSubTotal(cart).totalQuantity
 	

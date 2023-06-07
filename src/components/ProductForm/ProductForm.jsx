@@ -7,7 +7,7 @@ const ProductForm = ({ _id, details, props }) => {
 	const [size, setSize] = useState('')
 	const [color, setColor] = useState('')
 	const addToCart = () => {
-		const item = { _id, size, color }
+		const item = { _id, size, color, colorName }
 		console.log(item)
 	}
 

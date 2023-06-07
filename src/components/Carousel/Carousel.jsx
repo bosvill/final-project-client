@@ -17,6 +17,25 @@ const Carousel = ({ gallery }) => {
 	}
 	return (
 		<>
+			
+			<div className={styles.carousel}>
+				<ChevronLeft onClick={prevSlide} className={styles.arrowLeft} />
+				{gallery.length
+					? gallery.map((image, index) => (
+							<img
+								key={image?._id}
+								src={image?.url}
+								alt={image?.public_id}
+								className={
+									slide === index
+										? `${styles.slide}`
+										: [`${styles.slide}`, `${styles.hidden}`].join(' ')
+								}
+							/>
+					  ))
+					: null}
+				<ChevronRight onClick={nextSlide} className={styles.arrowRight} />
+			</div>
 			<div className={styles.previews}>
 				{gallery.map((p, index) => (
 					<IconButton
@@ -36,24 +55,6 @@ const Carousel = ({ gallery }) => {
 						
 					</IconButton>
 				))}
-			</div>
-			<div className={styles.carousel}>
-				<ChevronLeft onClick={prevSlide} className={styles.arrowLeft} />
-				{gallery.length
-					? gallery.map((image, index) => (
-							<img
-								key={image?._id}
-								src={image?.url}
-								alt={image?.public_id}
-								className={
-									slide === index
-										? `${styles.slide}`
-										: [`${styles.slide}`, `${styles.hidden}`].join(' ')
-								}
-							/>
-					  ))
-					: null}
-				<ChevronRight onClick={nextSlide} className={styles.arrowRight} />
 			</div>
 		</>
 	)
