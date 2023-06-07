@@ -6,26 +6,35 @@ import { toast } from 'react-hot-toast'
 import { useDispatch, useSelector } from 'react-redux'
 import { addToCart } from '../../features/app/cartSlice'
 import { useUpdateUserMutation } from '../../features/auth/authApi'
-import { availableColors, filterSizesByColor } from '../../utils/SizeAndColorFilters'
+import {
+	availableColors,
+	filterSizesByColor,
+	availableColorNames
+} from '../../utils/SizeAndColorFilters'
 import styles from './AddToCart.module.css'
 import Button from '../../UI/Button'
+//import WrapperSelect from './WrapperSelect'
 import Size from '../../UI/Size'
 
 const AddToCart = ({ details, _id, title, price, thumbnail }) => {
 	const [color, setColor] = useState('')
 	const [sizes, setSizes] = useState('')
-	//const [size, setSize] = useState('')
+	const [size, setSize] = useState('')
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const colors = availableColors(details)
+	const colorNames = availableColorNames(details)
+	const colorName = details.filter((el, i) => el[i] === colors.indexOf(color))
 
-	//console.log(color)
+	console.log(colorNames)
 
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
-		setValue
+		setValue,
+		getValues,
+		control
 	} = useForm()
 
 	useEffect(() => {
@@ -47,10 +56,11 @@ const AddToCart = ({ details, _id, title, price, thumbnail }) => {
 				thumbnail,
 				price,
 				color: data.color,
+				colorName,
 				size: data.size
 			})
 		)
-		console.log(data, color)
+		console.log(data, colorName)
 	}
 
 	/* for wishList  */
@@ -59,47 +69,29 @@ const AddToCart = ({ details, _id, title, price, thumbnail }) => {
 	const { user } = useSelector(state => state.auth)
 
 	const handleWishList = () => {
-		if (!user) navigate('sign-in')
-		addToCart({
+		if (!user) navigate('/sign-in', { replace: true })
+		/*if (!user) navigate('sign-in') */
+		addToWishList({
 			uid: user?._id,
 			userData: { wishList: { product: _id } }
 		})
 	}
-	/* useEffect(() => {
-		if (isWishListSuccess) {
-			toast.success('Product added to WishList!')
-			setTimeout(() => {
-				// window.location.reload();
-				navigate(0)
-			}, 1000)
-		}
-	}, [isWishListSuccess, navigate]) */
 
-	/* const handleColorChange = (color, e) => {
-		setColor(e.target.value)
-		setSizes(filterSizesByColor(details, color))
-		//setValue('color', color, { shouldValidate: true })
-	} */
 	return (
 		<>
 			<form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-				<div className={styles.formItem}>
-					<label htmlFor='color' className={styles.label}>
-						Color
-					</label>
-					<div className={styles.colors}>
-						{colors.length
-							? colors.map((el, idx) => (
-									<div
-										key={v4()}
-										className={
-											color === el
-												? `${styles.active}` /* [`${styles.color}`, `${styles.active}`].join(' ') */
-												: `${styles.color}`
-										}>
+				<div className={styles.colors}>
+					{colors.length
+						? colors.map(el => (
+								<>
+									<div className={styles.formItem}>
+										<label htmlFor='color' className={styles.label}>
+											{colorNames && colorNames.map(el => el)}
+										</label>
+									</div>
+									<div key={v4()} className={color === el ? `${styles.active}` : `${styles.color}`}>
 										<button
 											name='color'
-											/* value={color} */
 											className={styles.color}
 											style={{ backgroundColor: el }}
 											key={v4()}
@@ -107,11 +99,15 @@ const AddToCart = ({ details, _id, title, price, thumbnail }) => {
 											onClick={() => setColor(el)}
 										/>
 									</div>
-							  ))
-							: null}
-					</div>
+								</>
+						  ))
+						: null}
 				</div>
 				<div className={styles.formItem}>
+					{/* <> React.Children.only expected to receive a single React element child. 
+						<WrapperSelect name='wrapperSelect' control={control} sizes={sizes} />
+					</> */}
+
 					<Size
 						name='size'
 						sizes={filterSizesByColor(details, color)}
@@ -123,7 +119,6 @@ const AddToCart = ({ details, _id, title, price, thumbnail }) => {
 					/>
 				</div>
 
-				{/* <SizeSelect sizes={sizes} /> */}
 				<div className={styles.formItem}>
 					<Button children='Add to bag' type='submit' />
 				</div>

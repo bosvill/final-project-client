@@ -14,9 +14,14 @@ const CartMenuItem = ({ _id, title, price, size, color, quantity, thumbnail }) =
 		<article className={styles.cartItem}>
 			<img src={`${thumbnail?.url}`} className={styles.cartImg} />
 			<div className={styles.cartInfo}>
-				<Link to={`/product/${_id}`} className={styles.titleLink}>{title}</Link>
-				<p className={styles.size}>Size {size}</p>
-				<p className={styles.color}>{color}</p>
+				<Link to={`/product/${_id}`} className={styles.titleLink}>
+					{title}
+				</Link>
+				<p className={styles.size}>{size}</p>
+				<div className={styles.color}>
+					<button name='color' className={styles.color} style={{ backgroundColor: color }} />
+				</div>
+				{/* <p className={styles.color}>{colorName}</p> */}
 			</div>
 			<div className={styles.quantityWrapper}>
 				<div className={styles.quantity}>

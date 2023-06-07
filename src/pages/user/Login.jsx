@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { useSigninMutation } from '../../features/auth/authApi'
 import { toast } from 'react-hot-toast'
@@ -8,6 +8,7 @@ import Button from '../../UI/Button'
 import Input from '../../UI/Input'
 
 const Login = () => {
+	const { state } = useLocation()
 	// react hook form credentials
 	const {
 		register,
@@ -37,7 +38,9 @@ const Login = () => {
 				toast.success('Welcome back!', {
 					id: 'signin_user'
 				})
-				navigate('..')
+				if (state) {
+					navigate(state.path)
+				} else navigate('..')
 			} else {
 				console.log(apiResult.message)
 				toast.error(apiResult.message, {

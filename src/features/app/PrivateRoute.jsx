@@ -6,13 +6,14 @@ import Fallback from '../../pages/Fallback'
 const PrivateRoute = ({ children }) => {
 	const { pathname } = useLocation()
 	const { user, isLoading } = useSelector(state => state.auth)
+const isAuth = Object.keys(user).length ? true : false
 
 	if (isLoading) {
 		return <Fallback />
 	}
 
-	if (!isLoading && !Object.keys(user).length) {
-		return <Navigate to='/sign-in' state={{ path: pathname }} />
+	if (!isLoading && !isAuth) {
+		return <Navigate replace to='/sign-in' state={{ path: pathname }} />
 	}
 
 	return children

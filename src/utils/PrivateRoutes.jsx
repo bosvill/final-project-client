@@ -12,7 +12,7 @@ const PrivateRoute = ({ children }) => {
 	}
 
 	if (!isLoading && !Object.keys(user).length) {
-		return <Navigate to='/sign-in' state={{ path: pathname }} />
+		return <Navigate replace to='/sign-in' state={{ path: pathname }} />
 	}
 
 	return children
