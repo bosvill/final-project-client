@@ -13,10 +13,7 @@
 .active {
 	color: var(--greyT);
 }
-.image{
-	width: 4rem;
-	height: 2rem;
-}
+
 .center-x {
 	display: flex;
 	justify-content: center;

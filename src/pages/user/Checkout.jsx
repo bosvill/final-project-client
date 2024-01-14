@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { useUpdateUserMutation } from '../../features/auth/authApi'
+import { removeAll } from '../../features/app/cartSlice'
 //import NumberInput from '../../components/NumberInput'
 import Summary from '../../components/Summary'
 import CheckoutModal from '../../components/CheckoutModal/CheckoutModal'
@@ -14,23 +16,21 @@ import 'react-credit-cards-2/dist/es/styles-compiled.css'
 
 const Checkout = () => {
 	const [shipping, setShipping] = useState(12)
-
-	const [open, setOpen] = useState(false);
+	const dispatch = useDispatch()
+	const { cart } = useSelector(state => state.cart)
+	const [open, setOpen] = useState(false)
 
 	const { user, isLoading } = useSelector(state => state.auth)
-	const { cart } = useSelector(state => state.cart)
 
-	/* const [cardNumber, setCardNumber] = useState('')
-	const getImageUrl = imgName => '/assets/checkout/' + imgName
-	const [cardIcon, setCardIcon] = useState(getImageUrl('unknown.png')) */
-
-	const { name, email, phone, address } = user
+	const [updateUserInfo, { isLoading: isUserLoading }] = useUpdateUserMutation()
+	const { _id, name, email, phone, address } = user
 
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
-		setValue
+		setValue,
+		reset
 	} = useForm({
 		defaultValues: {
 			name,
@@ -73,7 +73,12 @@ const Checkout = () => {
 
 	const handlePayment = data => {
 		console.log(errors, data)
+		updateUserInfo({ uid: _id, address, phone, name, email })
 		setOpen(true)
+		setState(state.number(''))
+		setState(state.name(''))
+		setState(state.expiry(''))
+		setState(state.cvc(''))
 	}
 
 	return (
@@ -81,41 +86,40 @@ const Checkout = () => {
 			<main className={styles.cart}>
 				<h1 className={styles.cartTitle}>Checkout</h1>
 
-				
-					<section className={styles.delivery}>
-						<div className={styles.titleWrapper}>
-							<h5 className={styles.sectionTitle}>Select delivery method</h5>
-						</div>
-						
-							<div className={styles.sectionItem}>
-								<Radio
-									name='shipping'
-									value={subtotal >= 200 ? 0 : 12}
-									label='Standard (4-7 business days)'
-									onChange={e => setShipping(e.target.value)}
-								/>
-								<span className={styles.price}>€ 12</span>
-							</div>
-							<div className={styles.sectionItem}>
-								<Radio
-									name='shipping'
-									value={20}
-									label='Express * (1-2 business days)'
-									onChange={e => setShipping(e.target.value)}
-								/>
-								<span className={styles.price}>€ 20</span>
-							</div>
-							<div className={styles.sectionItem}>
-								<Radio
-									name='shipping'
-									value={35}
-									label='Guaranteed delivery Saturday morning'
-									onChange={e => setShipping(e.target.value)}
-								/>
-								<span className={styles.price}>€ 35</span>
-							</div>
-					</section>
-					<Summary
+				<section className={styles.delivery}>
+					<div className={styles.titleWrapper}>
+						<h5 className={styles.sectionTitle}>Select delivery method</h5>
+					</div>
+
+					<div className={styles.sectionItem}>
+						<Radio
+							name='shipping'
+							value={subtotal >= 200 ? 0 : 12}
+							label='Standard (4-7 business days)'
+							onChange={e => setShipping(e.target.value)}
+						/>
+						<span className={styles.price}>€ 12</span>
+					</div>
+					<div className={styles.sectionItem}>
+						<Radio
+							name='shipping'
+							value={20}
+							label='Express * (1-2 business days)'
+							onChange={e => setShipping(e.target.value)}
+						/>
+						<span className={styles.price}>€ 20</span>
+					</div>
+					<div className={styles.sectionItem}>
+						<Radio
+							name='shipping'
+							value={35}
+							label='Guaranteed delivery Saturday morning'
+							onChange={e => setShipping(e.target.value)}
+						/>
+						<span className={styles.price}>€ 35</span>
+					</div>
+				</section>
+				<Summary
 					shipping={shipping}
 					subtotal={subtotal}
 					btn='Confirm Payment'
@@ -171,7 +175,7 @@ const Checkout = () => {
 						<div className={styles.titleWrapper}>
 							<h5 className={styles.sectionTitle}>Payment Details</h5>
 						</div>
-						<div className={styles.form}>
+						<form className={styles.form}>
 							<Cards
 								number={state.number}
 								expiry={state.expiry}
@@ -245,58 +249,11 @@ const Checkout = () => {
 									</div>
 								</div>
 							</div>
-						</div>
-						{/* <NumberInput
-							name='cardNumber'
-							id='cardNumber'
-							value={cardNumber}
-							label='Card number'
-							errors={errors.cardNumber}
-							rules={{ required: true }}
-							register={register}
-							onChange={detectCardType}
-						/>
-
-						<Input
-							name='cardHolder'
-							type='text'
-							label="Card Holder's Name"
-							register={register}
-							rules={{ required: true }}
-						/>
-						<div className={styles.expire}>
-							<Input
-								{...register('expMonth', { required: true })}
-								name='expMonth'
-								label='Month'
-								type='text'
-								placeholder='00'
-								rules={{ required: true }}
-								register={register}
-							/>
-							<Input
-								name='expYear'
-								type='text'
-								placeholder='0000'
-								rules={{ required: true }}
-								register={register}
-							/>
-						</div>
-						<div className={styles.expire}>
-							<Input
-								name='ccv'
-								type='text'
-								placeholder='000'
-								rules={{ required: true, maxLength: 16 }}
-								register={register}
-							/>
-							<div className={styles.cardImg}>
-								<img src={cardIcon} width='160' height='80' className={styles.cardImg} />
-							</div>
-						</div> */}
+						</form>
 					</section>
 					<div className={styles.fitem}>
 						<Button type='submit' children='Confirm Payment' />
+						{/* <Button children='View order' onClick={dispatch(removeAll())}/> */}
 					</div>
 				</form>
 				{open && <CheckoutModal open={open} setOpen={setOpen} />}

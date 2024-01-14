@@ -1,1 +1,2 @@
-# finalProject-client
+# E-commerce frontend project
+

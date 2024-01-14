@@ -24,17 +24,13 @@ const AddToCart = ({ details, _id, title, price, thumbnail }) => {
 	const navigate = useNavigate()
 	const colors = availableColors(details)
 	const colorNames = availableColorNames(details)
-	const colorName = details.filter((el, i) => el[i] === colors.indexOf(color))
-
-	console.log(colorNames)
+	//const colorName = details.filter((el, i) => el[i] === colors.indexOf(color))
 
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
-		setValue,
-		getValues,
-		control
+		setValue
 	} = useForm()
 
 	useEffect(() => {
@@ -56,11 +52,10 @@ const AddToCart = ({ details, _id, title, price, thumbnail }) => {
 				thumbnail,
 				price,
 				color: data.color,
-				colorName,
 				size: data.size
 			})
 		)
-		console.log(data, colorName)
+		console.log(data)
 	}
 
 	/* for wishList  */
@@ -70,7 +65,6 @@ const AddToCart = ({ details, _id, title, price, thumbnail }) => {
 
 	const handleWishList = () => {
 		if (!user) navigate('/sign-in', { replace: true })
-		/*if (!user) navigate('sign-in') */
 		addToWishList({
 			uid: user?._id,
 			userData: { wishList: { product: _id } }
@@ -81,14 +75,18 @@ const AddToCart = ({ details, _id, title, price, thumbnail }) => {
 		<>
 			<form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
 				<div className={styles.colors}>
-					{colors.length
-						? colors.map(el => (
-								<>
-									<div className={styles.formItem}>
-										<label htmlFor='color' className={styles.label}>
-											{colorNames && colorNames.map(el => el)}
-										</label>
-									</div>
+					<div className={styles.colorLabels}>
+						{colorNames &&
+							colorNames.map(el => (
+								<label htmlFor='color' className={styles.label}>
+									{el}
+								</label>
+							))}
+					</div>
+
+					<div className={styles.colorBtns}>
+						{colors.length
+							? colors.map(el => (
 									<div key={v4()} className={color === el ? `${styles.active}` : `${styles.color}`}>
 										<button
 											name='color'
@@ -99,9 +97,9 @@ const AddToCart = ({ details, _id, title, price, thumbnail }) => {
 											onClick={() => setColor(el)}
 										/>
 									</div>
-								</>
-						  ))
-						: null}
+							  ))
+							: null}
+					</div>
 				</div>
 				<div className={styles.formItem}>
 					{/* <> React.Children.only expected to receive a single React element child. 

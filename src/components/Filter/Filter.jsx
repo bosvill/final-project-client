@@ -38,6 +38,7 @@ const Filter = () => {
 	const brand = brandData?.data || []
 	const products = productsData?.data || []
 	const filteredProducts = products.filter(el => el.brand?._id === fid)
+	const subFilter = products.filter(el => el.subcategory?._id === fid)
 	console.log('brand:', brand)
 
 	console.log(filter)
@@ -58,6 +59,7 @@ const Filter = () => {
 			</div>
 			<section className={styles.grid}>
 				{filteredProducts && filteredProducts.map(el => <ProductCard key={el.id} product={el} />)}
+				{subFilter && subFilter.map(el => <ProductCard key={el.id} product={el} />)}
 			</section>
 		</section>
 	)
